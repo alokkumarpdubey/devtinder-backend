@@ -3,18 +3,16 @@ const app = express();
 
 // routing handlers
 
-// this will match all the HTTP methoda api calls
-app.use("/test", (req, res) => {
-  res.send("Test from the server.");
-});
+// "/user"
+// "/us?er"
+// "/us+er"
+// "/us*er"
+// "/u(se)?r"
 
-// this will match only GET requests to user
-app.get("/user", (req, res) => {
+app.get("/user/:userId", (req, res) => {
+  console.log("req.query", req.query);
+  console.log("req.params", req.params);
   res.send({ name: "Alok", age: 30 });
-});
-
-app.post("/user", (req, res) => {
-  res.send("Creating a new user");
 });
 
 app.listen(3000, () => {
