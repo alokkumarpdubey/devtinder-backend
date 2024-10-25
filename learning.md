@@ -57,3 +57,9 @@
     array of middleware functions are executed in sequence
     if any middleware function does not call next(), execution will stop
 - Why do we need middleware?
+- Error handling middleware
+    - used to handle errors in the application
+    - must have 4 parameters : err, req, res, next
+    - must be defined after all other routes/middleware
+    - if error is thrown in any middleware, it will be caught by the error handling middleware
+    - can be used to send a custom error message or status code
