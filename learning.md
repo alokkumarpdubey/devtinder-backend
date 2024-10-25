@@ -105,3 +105,9 @@
 - include express.json() middleware
 - make your API dynamic
     - use req.body instead of hardcoded values
+- create APIs for finding user by email and getting all users
+- create a DELETE API for deleting a user by id
+    - use findByIdAndDelete method
+- create a PATCH API for updating a user by id
+    - use findByIdAndUpdate method
+    - use {new: true} option to return the updated user
