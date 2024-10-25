@@ -49,3 +49,10 @@
             console.log("req.params", req.params);
             res.send({ name: "Alok", age: 30 });
         });
+- explain middleware/route handlers
+    middleware is functions between request and response
+    used for authentication, logging, validation, etc.
+    next() is used to pass control to the next middleware
+    next() is not a function to be called, it's just a placeholder for the next middleware
+    array of middleware functions are executed in sequence
+    if any middleware function does not call next(), execution will stop

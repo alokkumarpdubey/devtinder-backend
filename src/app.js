@@ -11,13 +11,13 @@ app.get("/user/:userId", (req, res, next) => {
 app.get("/profile", (req, res, next) => {
   next();
   console.log("profile 1");
-}, (req, res, next) => {
+}, [(req, res, next) => {
   next();
   console.log("profile 2");
 }, (req, res, next) => {
   next();
   console.log("profile 3");
-}, (req, res, next) => {
+}], (req, res, next) => {
   console.log("profile 4");
   res.send("profile 4");
 });
