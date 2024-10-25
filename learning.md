@@ -56,3 +56,4 @@
     next() is not a function to be called, it's just a placeholder for the next middleware
     array of middleware functions are executed in sequence
     if any middleware function does not call next(), execution will stop
+- Why do we need middleware?
