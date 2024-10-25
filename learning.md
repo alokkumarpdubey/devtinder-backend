@@ -63,3 +63,42 @@
     - must be defined after all other routes/middleware
     - if error is thrown in any middleware, it will be caught by the error handling middleware
     - can be used to send a custom error message or status code
+- create cluster in mongodb atlas
+- connect to cluster in node.js
+    install mongoose : npm install mongoose
+    connect to cluster :
+        const mongoose = require("mongoose");
+        const connectDB = async () => {
+            await mongoose.connect("mongodb+srv://alokkumarpdubey:A5Hgq7dvMBOINpf4@learningnode.lk5pa.mongodb.net/");
+        }
+        module.exports = connectDB;
+    connect to database and listen on port 3000 :
+        connectDB().then(() => {
+            console.log("connected to database");
+            app.listen(3000, () => {
+                console.log("Server is running on port 3000");
+            });
+        }).catch(err => {
+            console.log("error connecting to database", err);
+        })
+- create schema and model
+    const mongoose = require("mongoose");
+    const userSchema = new mongoose.Schema({
+        name: String,
+        age: Number
+    });
+    const User = mongoose.model("User", userSchema);
+- create POST route for signup
+    app.post("/signup", async (req, res) => {
+        const user = new User(req.body);
+        await user.save();
+        res.send(user);
+    });
+- Push some data to database using postman
+    http://localhost:3000/signup
+    body : 
+        {
+            "firstName": "Alok",
+            "lastName": "Dubey",
+        }
+- error handling while pushing data to database
