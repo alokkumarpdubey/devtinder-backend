@@ -102,3 +102,6 @@
             "lastName": "Dubey",
         }
 - error handling while pushing data to database
+- include express.json() middleware
+- make your API dynamic
+    - use req.body instead of hardcoded values
