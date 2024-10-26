@@ -1,13 +1,17 @@
 const express = require("express");
 const connectDB = require("./config/database");
 const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
+var jwt = require("jsonwebtoken");
 
 const app = express();
 const User = require("./models/user");
+const { userAuth } = require("./middlewares/auth");
 
 const { validateSignupRequest } = require("./utils/validation");
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.post("/signup", async (req, res) => {
   try {
@@ -51,18 +55,21 @@ app.post("/signup", async (req, res) => {
 app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({email});
+    const user = await User.findOne({ email });
+    
     if (!email || !password) {
       throw new Error("Email and password are required");
     }
     if (!user) {
       throw new Error("Invalid email or password");
     }
-    console.log(user.password)
-    const isPassordMatch = await bcrypt.compare(password, user.password);
-    if (!isPassordMatch) {
+
+    const isPasswordMatch = await user.validatePassword(password);
+    if (!isPasswordMatch) {
       throw new Error("Invalid email or password");
     }
+    var token = await user.getJWTToken();
+    res.cookie("token", token, { expires: new Date(Date.now() + 8 * 3600000) });
     res.send("Login successful");
   } catch (error) {
     res.status(400).send(error.message);
@@ -70,79 +77,19 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/user", async (req, res) => {
-  const userEmail = req.body.email;
+app.get("/profile", userAuth, async (req, res) => {
   try {
-    const users = await User.find({ email: userEmail });
-    if (users.length === 0) {
-      res.status(404).send("No user found with email " + userEmail);
-    }
-    res.send(users);
-  } catch (error) {
-    res.status(500).send(error.message);
-    console.log("Error in get user request", error.message);
-  }
-});
-
-app.get("/feed", async (req, res) => {
-  try {
-    const users = await User.find({});
-    res.send(users);
-  } catch (error) {
-    res.status(500).send(error.message);
-    console.log("Error in get feed request", error.message);
-  }
-});
-
-app.delete("/user", async (req, res) => {
-  const userID = req.body.userId;
-  try {
-    const user = await User.findByIdAndDelete(userID);
-    // const user = await User.findByIdAndDelete({_id : userID});
-    if (!user) {
-      res.send("user not found by id " + userID);
-    }
-    res.send("user deleted successfully");
-  } catch (error) {
-    res.status(500).send(error.message);
-    console.log("Error in delete user request", error.message);
-  }
-});
-
-app.patch("/user/:userId", async (req, res) => {
-  const userId = req.params?.userId;
-  const userUpdate = req.body;
-
-  try {
-    const ALLOWED_UPDATES = [
-      "firstName",
-      "lastName",
-      "age",
-      "gender",
-      "about",
-      "skills",
-    ];
-    const isUpdateAllowed = Object.keys(userUpdate).every((update) =>
-      ALLOWED_UPDATES.includes(update)
-    );
-    if (!isUpdateAllowed) {
-      throw new Error("Invalid updates");
-    }
-    if (userUpdate.skills.length > 10) {
-      throw new Error("Skills array cannot have more than 10 skills");
-    }
-    const user = await User.findByIdAndUpdate(userId, userUpdate, {
-      returnDocument: "after",
-      runValidators: true,
-    });
-    if (!user) {
-      res.status(404).send("user not found by id " + userId);
-    }
+    const user = req.user;
     res.send(user);
   } catch (error) {
     res.status(400).send(error.message);
-    console.log("Error in patch request", error.message);
+    console.log("Error in profile request", error.message);
   }
+});
+
+app.post("/sendconnectionrequest", userAuth, async (req, res) => {
+  const user = req.user;
+  res.send(user.firstName + " sent connection request!!");
 });
 
 connectDB()

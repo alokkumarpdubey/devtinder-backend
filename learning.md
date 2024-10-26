@@ -151,3 +151,41 @@
     - find user by email
     - compare the password using bcrypt.compare
     - send 200 status code and success message if email and password are correct
+- Send a cookie to the client
+    - use res.cookie to send a cookie to the client
+    - to read cookie, use req.cookies
+    - cookie parser is used to parse the cookie
+        - install cookie parser : npm install cookie-parser
+    - JSONWEBTOKEN : use jwt to sign the cookie
+        - install jsonwebtoken : npm install jsonwebtoken
+        - use jwt.sign to sign the cookie
+        - use jwt.verify to verify the cookie
+        - use JWT_SECRET to sign and verify the cookie
+        - JWT_SECRET is a secret key used to sign and verify the cookie
+        - create profile API to get the user details
+            - use jwt to get the user details
+            - send 200 status code and user details
+            - send 401 status code and unauthorized message if token is missing or invalid
+
+- Add userAuth middleware to protect all API
+- setting JWT token and cookie expiration time
+- create userSchema methods
+    - getJWTToken
+    - validatePassword
+
+
+
+
+
+
+
+
+
+
+
+        - JWT_SECRET should be stored in environment variables
+        - JWT_SECRET should be stored in .env file
+        - use dotenv to load environment variables
+            - install dotenv : npm install dotenv
+            - load environment variables : require('dotenv').config()
+    
