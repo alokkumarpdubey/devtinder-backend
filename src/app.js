@@ -56,20 +56,32 @@ app.delete("/user", async (req, res) => {
   }
 });
 
-app.patch("/user", async (req, res) => {
-  const userId = req.body.userId;
+app.patch("/user/:userId", async (req, res) => {
+  const userId = req.params?.userId;
   const userUpdate = req.body;
+
   try {
-    const user = await User.findByIdAndUpdate(userId, userUpdate, {new: true});
-    if(!user) {
-      res.status(404).send("user not found by id " + userId);
+    const ALLOWED_UPDATES = ["firstName", "lastName", "age", "gender", "about", "skills"];
+    const isUpdateAllowed = Object.keys(userUpdate).every((update) => ALLOWED_UPDATES.includes(update));
+    if(!isUpdateAllowed) {
+       throw new Error("Invalid updates");
     }
+    if(userUpdate.skills.length > 10) {
+      throw new Error("Skills array cannot have more than 10 skills");
+    }
+    const user = await User.findByIdAndUpdate(userId, userUpdate, {
+      returnDocument: "after",
+      runValidators: true,
+    });
+    if (!user) {
+      res.status(404).send("user not found by id " + userId);
+    } 
     res.send(user);
   } catch (error) {
-    res.status(500).send(error);
-    console.log(error);
+    res.status(400).send(error);
+    console.log("Error in patch request", error);
   }
-})
+});
 
 connectDB()
   .then(() => {

@@ -111,3 +111,31 @@
 - create a PATCH API for updating a user by id
     - use findByIdAndUpdate method
     - use {new: true} option to return the updated user
+- Explore schema options
+    - validate : used to validate the data before saving to database
+    - trim : used to remove whitespace from the data
+    - lowercase : used to convert the data to lowercase
+    - unique : used to make the data unique
+    - minlength : used to set the minimum length of the data
+    - maxlength : used to set the maximum length of the data
+    - timestamps : automatically adds createdAt and updatedAt fields
+    - improved user schema
+        - added email, password, age, gender, photo, about, skills
+        - added validations for email, password, age, gender
+        - added default values for photo and about
+        - added timestamps to the schema
+- Data sanitization at API level
+    - validate the data before saving to database
+    - use try catch to handle errors
+    - send appropriate status codes and messages
+- Learn about validator package
+    - install validator : npm install validator
+    - use validator to validate the data
+    - validator.isEmail(value) : used to validate email
+    - validator.isStrongPassword(value) : used to validate password
+- Install and explore validator package
+    - npm install validator
+    - use validator to validate the data
+    - validator.isEmail(value) : used to validate email
+    - validator.isStrongPassword(value) : used to validate password
+    - validator.isURL(value) : used to validate URL
