@@ -139,3 +139,7 @@
     - validator.isEmail(value) : used to validate email
     - validator.isStrongPassword(value) : used to validate password
     - validator.isURL(value) : used to validate URL
+- Data sanitization for signup request
+    - validate firstName, lastName, email, password
+    - throw error if any of the fields are missing or invalid
+    - send 400 status code and error message if any of the fields are missing or invalid

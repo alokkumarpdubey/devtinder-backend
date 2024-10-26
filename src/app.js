@@ -4,16 +4,19 @@ const connectDB = require("./config/database");
 const app = express();
 const User = require("./models/user");
 
+const { validateSignupRequest } = require("./utils/validation");
+
 app.use(express.json());
 
 app.post("/signup", async (req, res) => {
-  const user = new User(req.body);
   try {
+    validateSignupRequest(req);
+    const user = new User(req.body);
     await user.save();
     res.send(user);
   } catch (error) {
-    res.status(500).send(error);
-    console.log(error);
+    res.status(500).send(error.message);
+    console.log("Error in signup request", error.message);
   }
 });
 
@@ -26,8 +29,8 @@ app.get("/user", async (req, res) => {
     }
     res.send(users);
   } catch (error) {
-    res.status(500).send(error);
-    console.log(error);
+    res.status(500).send(error.message);
+    console.log("Error in get user request", error.message);
   }
 });
 
@@ -36,8 +39,8 @@ app.get("/feed", async (req, res) => {
     const users = await User.find({});
     res.send(users);
   } catch (error) {
-    res.status(500).send(error);
-    console.log(error);
+    res.status(500).send(error.message);
+    console.log("Error in get feed request", error.message);
   }
 });
 
@@ -51,8 +54,8 @@ app.delete("/user", async (req, res) => {
     }
     res.send("user deleted successfully");
   } catch (error) {
-    res.status(500).send(error);
-    console.log(error);
+    res.status(500).send(error.message);
+    console.log("Error in delete user request", error.message);
   }
 });
 
@@ -78,8 +81,8 @@ app.patch("/user/:userId", async (req, res) => {
     } 
     res.send(user);
   } catch (error) {
-    res.status(400).send(error);
-    console.log("Error in patch request", error);
+    res.status(400).send(error.message);
+    console.log("Error in patch request", error.message);
   }
 });
 
