@@ -143,3 +143,11 @@
     - validate firstName, lastName, email, password
     - throw error if any of the fields are missing or invalid
     - send 400 status code and error message if any of the fields are missing or invalid
+    - hash the password before saving to database
+    - use bcrypt to hash the password
+- Create a login API
+    - validate email and password
+    - send 400 status code and error message if email or password is missing or invalid
+    - find user by email
+    - compare the password using bcrypt.compare
+    - send 200 status code and success message if email and password are correct
