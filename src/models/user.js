@@ -38,10 +38,13 @@ const userSchema = new mongoose.Schema(
     age: { type: Number, min: 18, max: 60 },
     gender: {
       type: String,
-      validate: {
-        validator: (v) => v === "Male" || v === "Female",
-        message: "Gender must be either Male or Female",
+      enum: {
+        values: ["Male", "Female"],
+        message: "{VALUE} is not a valid gender!",
       },
+      // validator: (v) => v === "Male" || v === "Female",
+      //   message: "Gender must be either Male or Female",
+      // },
     },
     photo: {
       type: String,

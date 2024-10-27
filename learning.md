@@ -192,6 +192,24 @@
         - update the user photo
         - send 200 status code and success message
 
+- Created Connection Request Schema and APIs
+    - POST /request/send/:status/:toUserId
+    - proper validation for request body and params
+    - Covered corner cases for API validations
+    - what is indexing in mongoose?
+        - indexing is used to improve the performance of the queries
+        - indexing is used to create a faster access path to the data
+        - indexing is used to enforce uniqueness of the data
+        - compound indexing
+    - $or and $and operators in mongoose
+        - $or is used to match any of the conditions
+        - $and is used to match all the conditions
+    - pre middleware in mongoose
+        - pre middleware is used to perform some actions before the data is saved, updated and deleted
+
+
+
+
 
 
 
