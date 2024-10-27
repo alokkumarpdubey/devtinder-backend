@@ -172,9 +172,13 @@
 - create userSchema methods
     - getJWTToken
     - validatePassword
-
-
-
+- Group APIs into different routers
+    - create route folders : src/routes
+        - create authRouter.js in routes folder
+        - create profileRouter.js in routes folder
+        - create requestRouter.js in routes folder
+    - Import routers in app.js
+    - test APIs using postman
 
 
 
