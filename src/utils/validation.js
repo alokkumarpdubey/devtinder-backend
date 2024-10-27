@@ -11,6 +11,32 @@ const validateSignupRequest = (req) => {
   }
 };
 
+const validateProfileEditRequest = (req) => {
+  const allowedFields = [
+    "firstName",
+    "lastName",
+    "age",
+    "gender",
+    "photo",
+    "about",
+    "skills",
+  ];
+  const isEditAllowed = Object.keys(req.body).every((field) =>
+    allowedFields.includes(field)
+  );
+  return isEditAllowed;
+};
+
+const validatePasswordUpdateRequest = (req) => {
+  const { oldPassword, newPassword } = req.body;
+  if(!oldPassword || !newPassword) {
+    return false;
+  }
+  return true;
+};
+
 module.exports = {
   validateSignupRequest,
+  validateProfileEditRequest,
+  validatePasswordUpdateRequest
 };

@@ -179,8 +179,18 @@
         - create requestRouter.js in routes folder
     - Import routers in app.js
     - test APIs using postman
-
-
+- Created GET /logout API
+    - clear the cookie
+    - send 200 status code and success message
+- Created PATCH /profile/edit API
+    - validate the request
+    - update the user profile
+    - send 200 status code and success message
+- Assignments
+    - Create PATCH /profile/password API
+        - validate the request
+        - update the user photo
+        - send 200 status code and success message
 
 
 
