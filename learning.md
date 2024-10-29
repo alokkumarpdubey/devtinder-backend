@@ -219,6 +219,24 @@
         - $or is used to match any of the conditions
         - $and is used to match all the conditions
 
+- GET /user/feed API
+    - get all users except logged in user, his connections, ignored users, already sent the connection request
+    - use $nin operator in mongoose
+        - $nin is used to exclude the data from the query
+        - explore other comparison operators in mongoose like $ne, $gt, $gte, $lt, $lte
+        https://www.mongodb.com/docs/manual/reference/operator/query-comparison/
+        - $eq : Matches values that are equal to a specified value.
+        - $ne : Matches all values that are not equal to a specified value.
+        - $gt : Matches values that are greater than a specified value.
+        - $gte : Matches values that are greater than or equal to a specified value.
+        - $lt : Matches values that are less than a specified value.
+        - $lte : Matches values that are less than or equal to a specified value.   
+    - use Set to store the user ids
+    - use pagination for feed API
+        - use skip and limit in mongoose query
+        - send page and limit in query params
+        - send totalPages and currentPage in response
+
 
 
 
