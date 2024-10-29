@@ -207,6 +207,23 @@
     - pre middleware in mongoose
         - pre middleware is used to perform some actions before the data is saved, updated and deleted
 
+- GET /user/requests/received API
+- reference in mongoose
+    - reference is used to create a relationship between two collections (user collection and connection request collection)
+    - reference is created using ref option in schema
+- populate method in mongoose
+    - populate method is used to replace the reference with actual data
+    - populate method is used to get the data from other collection (ex : user details from user collection in connection request collection)
+- GET /user/connections API
+    - $or and $and operators in mongoose
+        - $or is used to match any of the conditions
+        - $and is used to match all the conditions
+
+
+
+
+
+
 
 
 
