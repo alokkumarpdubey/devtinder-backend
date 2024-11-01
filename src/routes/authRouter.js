@@ -38,6 +38,8 @@ authRouter.post("/signup", async (req, res) => {
       skills,
     });
     await user.save(); // save the user to the database
+    var token = await user.getJWTToken();
+    res.cookie("token", token, { expires: new Date(Date.now() + 8 * 3600000) });
     res.send(user); // send the response
   } catch (error) {
     res.status(500).send(error.message);
@@ -63,7 +65,7 @@ authRouter.post("/login", async (req, res) => {
     }
     var token = await user.getJWTToken();
     res.cookie("token", token, { expires: new Date(Date.now() + 8 * 3600000) });
-    res.send("Login successful");
+    res.send(user);
   } catch (error) {
     res.status(400).send(error.message);
     console.log("Error in login request", error.message);

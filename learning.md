@@ -237,11 +237,28 @@
         - send page and limit in query params
         - send totalPages and currentPage in response
 
+Local development setup =>
+- to enable cors in the server, add `cors` middleware to the server
+        - `npm install cors`
+        - `app.use(cors({credentials: true, origin: "http://localhost:5173"}));`
 
 
+# PACKAGES WE USED
+- bcrypt : used to hash the password (https://www.npmjs.com/package/bcrypt)
+- cookie-parser : used to parse the cookie (https://www.npmjs.com/package/cookie-parser)
+- jsonwebtoken : used to sign the cookie (https://www.npmjs.com/package/jsonwebtoken)
+- mongoose : used to interact with the database (https://www.npmjs.com/package/mongoose)
+- validator : used to validate the data (https://www.npmjs.com/package/validator)
+- express : used to create the server (https://www.npmjs.com/package/express)
 
-
-
+"dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.7.2",
+    "validator": "^13.12.0"
+  }
 
 
 
